@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>MA Coronavirus Statistics</title>
+  <meta name="description" content="Town by Town Case Counts">
+  <meta name="author" content="Prathik Ramesh">
+
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}"/>
+
+</head>
+
+<body>
+  <h1> Massachusetts COVID-19 Case Counts by Town </h1>
+
+  <div class="table">
+    <p>{{ table }}</p>
+  </div>
+
+  <p>Information sourced from local boards of health. The owner of this site makes no representations as to the accuracy or completeness of any information on this site or found by following any link on this site.</p>
+  
+</body>
+</html>

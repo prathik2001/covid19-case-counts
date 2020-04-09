@@ -1,0 +1,29 @@
+*
+{
+	background-color: #F0F8FF;
+}
+
+table
+{
+	border-collapse: collapse;
+	border: 1px solid;
+}
+
+table tr td 
+{
+	border-right: 1px solid;
+	border-bottom: 1px solid;
+	color: black;  
+	padding: 5px;
+}
+
+th
+{
+	border: 1px solid;
+}
+
+tbody
+{
+	border: 2px solid;
+}
+
