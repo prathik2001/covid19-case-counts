@@ -1,10 +1,9 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from flask import Flask, render_template, request
-from flask_table import Table, Col
-from csv import DictReader
+from flask import Flask, render_template, request, g
+from flask_table import Table, Col, DateCol
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='templates') 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
@@ -22,12 +21,12 @@ def home():
 	creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
 	client = gspread.authorize(creds)
 
-	sheet = client.open("Massachusetts Coronavirus Info by Town").sheet1
+	sheet = client.open("Massachusetts Coronavirus Info by Town - Source").sheet1
 	read_object = sheet.get_all_records()
 
-	table = ItemTable(read_object)
+	table = ItemTable(read_object, table_id='cases')
 
-	return render_template('covid.html', table = table)
+	return render_template('covid.html', table = table, header = sheet.get('J346:M346'))
 
 if __name__ == '__main__':
     app.run(debug=True)
