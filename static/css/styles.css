@@ -47,7 +47,7 @@ input
 
 label
 {
-	display: block ruby;
+	white-space: nowrap;
 }
 
 p
