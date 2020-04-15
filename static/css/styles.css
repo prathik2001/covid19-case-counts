@@ -3,19 +3,19 @@
 	font-family: 'Open Sans', sans-serif;
 }
 
-table
-{
-	border: 2px solid;
-}
-
 table tr td 
 {
 	border-bottom: 1px solid;
 }
 
+table
+{
+	border: 2px solid;
+}
+
 div.dataTables_length {
 	float: left;
-	padding-left: 20px;
+	padding-left: 3px;
 	padding-top: 20px;
 	margin-bottom: -15px;
 }
@@ -52,7 +52,12 @@ label
 
 p
 {
-	margin-left: 5px;
+	margin-left: 23px;
+}
+
+h1
+{
+	margin-left: 20px;
 }
 
 .disclaimer
@@ -61,3 +66,7 @@ p
 	font-size: 9px;
 }
 
+.table
+{
+	width: 99.89%;
+}
