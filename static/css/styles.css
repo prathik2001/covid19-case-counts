@@ -25,6 +25,7 @@ div.dataTables_filter {
 	padding-top: 20px;
 	margin-right: 53px;
 	margin-bottom: -20px;
+	white-space: nowrap;
 }
 
 div.dataTables_wrapper {
