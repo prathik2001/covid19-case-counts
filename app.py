@@ -1,4 +1,5 @@
 import gspread
+import os
 from oauth2client.service_account import ServiceAccountCredentials
 from flask import Flask, render_template, request, g
 from flask_table import Table, Col, DateCol
@@ -18,7 +19,8 @@ def home():
 	    Updated = Col('Last Updated')
 
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+	service_account_info = json.load(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+	creds = ServiceAccountCredentials.from_service_account_info(service_account_info)
 	client = gspread.authorize(creds)
 
 	sheet = client.open("Massachusetts Coronavirus Info by Town - Source").sheet1
