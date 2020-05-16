@@ -1,7 +1,6 @@
 import gspread
 import os
 import json
-from oauth2client.service_account import ServiceAccountCredentials
 from google.oauth2 import service_account
 from flask import Flask, render_template, request, g
 from flask_table import Table, Col, DateCol
