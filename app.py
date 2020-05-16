@@ -20,10 +20,10 @@ def home():
 	    Updated = Col('Last Updated')
 
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	#service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
-	#creds = service_account.Credentials.from_service_account_info(service_account_info)
-	#scoped_creds = creds.with_scopes(scope)
-	client = gspread.service_account(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+	service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+	creds = service_account.Credentials.from_service_account_info(service_account_info)
+	scoped_creds = creds.with_scopes(scope)
+	client = gspread.authorize(scoped_creds)
 
 	sheet = client.open("Massachusetts Coronavirus Info by Town - Source").sheet1
 	read_object = sheet.get_all_records()
