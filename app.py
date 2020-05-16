@@ -20,7 +20,7 @@ def home():
 	    Updated = Col('Last Updated')
 
 	scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
-	service_account_info = json.load(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
+	service_account_info = json.loads(os.environ.get('GOOGLE_APPLICATION_CREDENTIALS'))
 	creds = ServiceAccountCredentials.from_service_account_info(service_account_info)
 	client = gspread.authorize(creds)
 
