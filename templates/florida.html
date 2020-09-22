@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
 
-  <title>MA Coronavirus Statistics</title>
+  <title>FL Coronavirus Statistics</title>
   <meta name="description" content="Town by Town Case Counts">
   <meta name="author" content="Prathik Ramesh">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,9 +20,9 @@
 </head>
 
 <body>
-  <h1> Massachusetts COVID-19 Case Counts by Town </h1>
+  <h1> Florida COVID-19 Case Counts by Town </h1>
 
-  <p> Statewide Total: {{ header[0][0] }} cases, {{ header[0][1] }} deaths, {{ header[0][2] }} recovered. Updated {{ header[0][3] }}.</p>
+  <p> Statewide Total: {{ header[0] }} cases, {{ header[1] }} hospitalized, {{ header[2] }} deaths. Updated {{ header[3] }}.</p>
 
   {% block content %}
   <div class="table">
@@ -38,12 +38,12 @@
     $(document).ready( function () {
       $('#table').DataTable({
         "columnDefs": [ {
-         orderSequence:["desc", "asc"], targets:[1, 2, 3, 4]},
-         {
-          "targets": [1, 2, 3, 4],
-          "render": function ( data, type, row, meta ) {
-          return (isNaN(data)) ? 0 : +data; }
-        }]
+          orderSequence:["desc", "asc"], targets:[0, 4]},
+          {
+            "targets": [4],
+            "render": function ( data, type, row, meta ) {
+            return (isNaN(data)) ? 0 : +data; }
+          }]
       });
      });
   </script>
