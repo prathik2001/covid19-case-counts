@@ -22,7 +22,6 @@ def home():
 	table_df = pd.read_sql_table("massachusetts", con=engine)
 	table = table_df.to_html(table_id="table", index=False)
 
-	# Use different API to get header data.
 	return render_template('home_massachusetts.html', table = table, header = header)
 
 @app.route('/florida', methods=['GET'])
@@ -42,7 +41,6 @@ def florida():
 	table_df = table_df.rename(columns=rename_dict)
 	table = table_df.to_html(table_id="table", columns=columns, index=False)
 
-	# Use different API to get header data.
 	return render_template('florida.html', table = table, header = header)
 
 @app.route('/arizona', methods=['GET'])
@@ -60,9 +58,8 @@ def arizona():
 	table_df = table_df.rename(columns=rename_dict)
 	table = table_df.to_html(table_id="table", index=False)
 
-	# Use different API to get header data.
 	return render_template('arizona.html', table = table, header = header)
 
 if __name__ == '__main__':
-	app.run()
+	app.run(debug=True)
     

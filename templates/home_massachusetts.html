@@ -22,6 +22,14 @@
 <body>
   <h1> Massachusetts COVID-19 Case Counts by Town </h1>
 
+  <div class="navbar">
+    <p>
+      Massachusetts -----
+      <a href="{{ url_for('florida') }}">Florida</a> -----
+      <a href="{{ url_for('arizona') }}">Arizona</a>
+    </p>
+  </div> 
+
   <p> Statewide Total: {{ header[0] }} cases, {{ header[1] }} hospitalized, {{ header[2] }} deaths. Updated {{ header[3] }}.</p>
 
   {% block content %}

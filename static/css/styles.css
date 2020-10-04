@@ -13,14 +13,16 @@ table
 	border: 2px solid;
 }
 
-div.dataTables_length {
+div.dataTables_length
+{
 	float: left;
 	padding-left: 3px;
 	padding-top: 20px;
 	margin-bottom: -15px;
 }
 
-div.dataTables_filter {
+div.dataTables_filter
+{
 	float: right;
 	padding-top: 20px;
 	margin-right: 53px;
@@ -28,7 +30,8 @@ div.dataTables_filter {
 	white-space: nowrap;
 }
 
-div.dataTables_wrapper {
+div.dataTables_wrapper 
+{
   margin: 0 auto;
   width: 97%;
   margin-bottom: 5px;
@@ -54,6 +57,8 @@ label
 p
 {
 	margin-left: 23px;
+	margin-bottom: 5px;
+	margin-top: 5px;
 }
 
 h1
@@ -70,4 +75,9 @@ h1
 .table
 {
 	width: 99.89%;
+}
+
+.navbar
+{
+	border: 2px solid;
 }

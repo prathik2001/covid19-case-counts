@@ -1,4 +1,5 @@
 import pangres
+import re
 import requests
 import os
 import pandas as pd
