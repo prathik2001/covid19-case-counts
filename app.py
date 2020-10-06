@@ -2,8 +2,9 @@ import os
 import requests
 import pandas as pd
 from dotenv import load_dotenv
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from sqlalchemy import create_engine, Table
+from sqlalchemy.orm import sessionmaker, scoped_session
 
 load_dotenv()
 app = Flask(__name__, template_folder='templates') 
@@ -59,6 +60,100 @@ def arizona():
 	table = table_df.to_html(table_id="table", index=False)
 
 	return render_template('arizona.html', table = table, header = header)
+
+@app.route('/api/cases', methods=['GET'])
+def get_json():
+	Session = scoped_session(sessionmaker(bind=engine))
+	s = Session()
+	params = request.args
+	num_params = len(request.args)
+
+	state = params.get('state')
+	city = params.get('city')
+	zip_code = params.get('zip')
+	county = params.get('county')
+
+	query = "SELECT * FROM " + state
+
+	if 'massachusetts' in state:
+		if city:
+			list_params = city.split(',')
+			query_list = str(tuple([arg for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "City/Town" IN {query_list};'.format(query_list=query_list)
+		res = s.execute(query)
+		list_cases = [row for row in res]
+		dictionary = {}
+		i = 0
+		for row in list_cases:
+			dictionary[i] = {'town':list_cases[i][0],
+				'cases':list_cases[i][1],
+				'last2weekcases':list_cases[i][2],
+				'casesper1k':list_cases[i][3],
+				'percentpositive':list_cases[i][4],
+			}
+			i += 1	
+
+	elif 'florida' in state:
+		if city:
+			list_params = city.split(',')
+			query_list = str(tuple([arg for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "POName" IN {query_list};'.format(query_list=query_list)
+
+		elif zip_code:
+			list_params = zip_code.split(',')
+			query_list = str(tuple([arg for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "ZIP"::integer IN {query_list};'.format(query_list=query_list)
+		
+		elif county:
+			list_params = county.split(',')
+			query_list = str(tuple([arg for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "COUNTYNAME" IN {query_list};'.format(query_list=query_list)
+
+		res = s.execute(query)
+		list_cases = [row for row in res]
+		dictionary = {}
+		i = 0
+		for row in list_cases:
+			dictionary[i] = {'id':list_cases[i][0],
+				'zip':list_cases[i][1],
+				'county':list_cases[i][2],
+				'po_city':list_cases[i][3],
+				'places':list_cases[i][4],
+				'cases':list_cases[i][5]
+			}
+			i += 1	
+
+	elif 'arizona' in state:
+		if city:
+			list_params = city.split(',')
+			query_list = str(tuple(['%' + arg + '%' for arg in list_params])).replace(',)', ')')
+			print(query_list)
+			query += ' WHERE "City Name" LIKE {query_list};'.format(query_list=query_list)
+
+		elif zip_code:
+			list_params = zip_code.split(',')
+			query_list = str(tuple([arg for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "POSTCODE"::integer IN {query_list};'.format(query_list=query_list)
+
+		elif county:
+			list_params = county.split(',')
+			query_list = str(tuple(['%' + arg + '%' for arg in list_params])).replace(',)', ')')
+			query += ' WHERE "City Name" LIKE {query_list};'.format(query_list=query_list)
+
+		print(query)
+		res = s.execute(query)
+		list_cases = [row for row in res]
+		dictionary = {}
+		i = 0
+		for row in list_cases:
+			dictionary[i] = {'zip':list_cases[i][0],
+				'cases':list_cases[i][1],
+				'location':list_cases[i][2],
+			}
+			i += 1	
+
+	s.close()
+	return jsonify(dictionary)
 
 if __name__ == '__main__':
 	app.run(debug=True)
